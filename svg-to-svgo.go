@@ -51,4 +51,7 @@ func main() {
 
 		fmt.Println("canvas.Gend()\n")
 	}
+
+	fmt.Println("canvas.PatternEnd()")
+	fmt.Println("canvas.DefEnd()")
 }
