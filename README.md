@@ -17,3 +17,4 @@ the resulting SVG file.
 ## Thanks
 
 - [ajstarks/svgo](https://github.com/ajstarks/svgo)
+- [Hero Patterns](https://www.heropatterns.com)
