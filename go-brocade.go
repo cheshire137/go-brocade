@@ -13,10 +13,10 @@ func main() {
 	canvas := svg.New(os.Stdout)
 	canvas.Start(width, height)
 
-	pattern := &patterns.FlowerAndStemSwirl{}
+	pattern := patterns.NewFlowerAndStemSwirl()
 	pattern.DefinePattern(canvas)
 
-	canvas.Circle(1205, 1260, 1205, "fill:url(#FlowerAndStemSwirl)")
+	canvas.Circle(1205, 1260, 1205, pattern.Fill())
 
 	canvas.End()
 }
