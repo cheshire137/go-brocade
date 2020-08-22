@@ -14,4 +14,5 @@ the resulting SVG file.
 
 ## Thanks
 
-- [svgo](https://github.com/ajstarks/svgo)
+- [ajstarks/svgo](https://github.com/ajstarks/svgo)
+- [rustyoz/svg](https://github.com/rustyoz/svg)
