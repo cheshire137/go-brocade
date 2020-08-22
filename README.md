@@ -4,17 +4,6 @@
 
 ## How to run
 
-### svg-to-svgo
-
-Use to generate Go code that will generate an SVG image, based on a given SVG image.
-
-```bash
-make
-bin/svg-to-svgo some-svg-file.svg > tmp.go
-```
-
-### go-brocade
-
 Use to generate an SVG image of [brocade](https://en.wikipedia.org/wiki/Brocade) patterns.
 
 ```bash
@@ -28,4 +17,3 @@ the resulting SVG file.
 ## Thanks
 
 - [ajstarks/svgo](https://github.com/ajstarks/svgo)
-- [rustyoz/svg](https://github.com/rustyoz/svg)
