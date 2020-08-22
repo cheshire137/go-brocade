@@ -4,9 +4,22 @@
 
 ## How to run
 
+### svg-to-svgo
+
+Use to generate Go code that will generate the same SVG.
+
 ```bash
 make
-bin/go-brocade > some-file-name.svg
+bin/svg-to-svgo some-svg-file.svg > tmp.go
+```
+
+### go-brocade
+
+Use to generate an SVG image of [brocade](https://en.wikipedia.org/wiki/Brocade) patterns.
+
+```bash
+make
+bin/go-brocade > some-svg-file.svg
 ```
 
 Use a tool -- like [Gapplin](http://gapplin.wolfrosch.com) on macOS -- to view
