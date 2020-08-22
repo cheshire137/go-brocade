@@ -32,7 +32,7 @@ func main() {
 	}
 
 	fmt.Println("canvas.Def()")
-	fmt.Println("canvas.Pattern(p.ID, 0, 0, pw, ph, \"user\")")
+	fmt.Println("canvas.Pattern(p.ID, 0, 0, pw, ph, \"user\")\n")
 
 	for _, group := range file.Groups {
 		if len(group.Fill) > 0 || len(group.Stroke) > 0 {
@@ -49,6 +49,6 @@ func main() {
 			}
 		}
 
-		fmt.Println("canvas.Gend()")
+		fmt.Println("canvas.Gend()\n")
 	}
 }
