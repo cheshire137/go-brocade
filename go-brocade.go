@@ -8,15 +8,19 @@ import (
 )
 
 func main() {
-	width := 2410
-	height := 2520
+	width := 1000
+	height := 1000
 	canvas := svg.New(os.Stdout)
 	canvas.Start(width, height)
 
-	pattern := patterns.NewFlowerAndStemSwirl()
-	pattern.DefinePattern(canvas)
+	jigsaw := patterns.NewJigsaw()
+	jigsaw.DefinePattern(canvas)
 
-	canvas.Circle(1205, 1260, 1205, pattern.Fill())
+	flowerStemSwirl := patterns.NewFlowerAndStemSwirl()
+	flowerStemSwirl.DefinePattern(canvas)
+
+	canvas.Circle(500, 500, 500, jigsaw.Fill())
+	canvas.Circle(500, 500, 500, flowerStemSwirl.Fill())
 
 	canvas.End()
 }
