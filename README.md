@@ -6,7 +6,7 @@
 
 ### svg-to-svgo
 
-Use to generate Go code that will generate the same SVG.
+Use to generate Go code that will generate an SVG image, based on a given SVG image.
 
 ```bash
 make
