@@ -1,2 +1,3 @@
 *.svg
 bin/go-brocade
+bin/svg-to-svgo
