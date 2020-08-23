@@ -43,3 +43,4 @@ the resulting SVG file.
 
 - [ajstarks/svgo](https://github.com/ajstarks/svgo)
 - [Hero Patterns](https://www.heropatterns.com)
+- [lucasb-eyer/go-colorful](https://github.com/lucasb-eyer/go-colorful)
