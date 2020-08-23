@@ -110,14 +110,14 @@ func main() {
 		fmt.Println("Could not parse X-offsets: " + err.Error())
 		os.Exit(1)
 	}
-	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
+	fmt.Printf("Using X-offsets %v\n", xOffsets)
 
 	yOffsets, err := parseOffsets(yOffsetsStr, totalPatterns)
 	if err != nil {
 		fmt.Println("Could not parse Y-offsets: " + err.Error())
 		os.Exit(1)
 	}
-	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
+	fmt.Printf("Using Y-offsets %v\n", yOffsets)
 
 	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:%s", colors[0]))
 
