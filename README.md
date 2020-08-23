@@ -28,14 +28,21 @@ Usage: bin/go-brocade [options]
     	Name of SVG file to create, e.g., my-image.svg
   -w int
     	Width of SVG image to produce; defaults to 8.5" at 125px per inch (default 1063)
+  -xoffsets string
+    	Comma-separated string of X-axis offset values, in pixels, for each pattern.
+    	If omitted, will default to 0px.
+  -yoffsets string
+    	Comma-separated string of Y-axis offset values, in pixels, for each pattern.
+    	If omitted, will default to 0px.
 ```
 
 For example:
 
 ```sh
-% make && bin/go-brocade -out test.svg -colors "#efefef"
+% make && bin/go-brocade -out test.svg -colors "#efefef" -xoffsets "0,-5,-3" -yoffsets "0,30,-65" && open test.svg
 go build -o bin/go-brocade go-brocade.go
 Using colors: #efefef, #7da852, #8a86ca, #c051c4, #d26a4f
+Using offsets: 0,0  -5,30  -3,-65  0,0  0,0
 Wrote test.svg
 ```
 
