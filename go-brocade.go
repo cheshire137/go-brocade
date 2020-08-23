@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/cheshire137/go-brocade/pkg/patterns"
@@ -23,9 +24,9 @@ func main() {
 	flag.StringVar(&outPath, "out", "",
 		"Name of SVG file to create, e.g., my-image.svg")
 
-	var color string
-	flag.StringVar(&color, "color", "",
-		"Color to apply to the pattern, e.g., #ff00ff; defaults to a randomly chosen color")
+	var colorsStr string
+	flag.StringVar(&colorsStr, "colors", "",
+		"Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999; defaults to randomly chosen colors")
 
 	flag.Parse()
 	if len(outPath) < 1 {
@@ -48,11 +49,26 @@ func main() {
 	pattern := patterns.NewFlowerAndStemSwirl()
 	pattern.DefinePattern(width, height, canvas)
 
-	if len(color) < 1 {
-		color = colorful.FastHappyColor().Hex()
+	var colors []string
+	if len(colorsStr) > 0 {
+		colors = strings.Split(colorsStr, ",")
+	} else {
+		colors = []string{}
 	}
-	fmt.Printf("Using color %s\n", color)
-	canvas.Rect(0, 0, width, height, pattern.Style(color))
+	totalColors := 1
+	if len(colors) < totalColors {
+		palette, err := colorful.HappyPalette(totalColors - len(colors))
+		if err != nil {
+			fmt.Println("Could not generate colors: " + err.Error())
+			os.Exit(1)
+			return
+		}
+		for _, color := range palette {
+			colors = append(colors, color.Hex())
+		}
+	}
+	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
+	canvas.Rect(0, 0, width, height, pattern.Style(colors[0]))
 
 	canvas.End()
 
