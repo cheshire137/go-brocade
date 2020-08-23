@@ -7,6 +7,7 @@ type Pattern interface {
 	Style(color string) string
 }
 
+var _ Pattern = (*Fleur)(nil)
 var _ Pattern = (*FlowerAndStemSwirl)(nil)
 var _ Pattern = (*Jigsaw)(nil)
 var _ Pattern = (*Jupiter)(nil)

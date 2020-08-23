@@ -73,6 +73,7 @@ func main() {
 	allPatterns := []patterns.Pattern{
 		patterns.NewSwirlyStem(),
 		patterns.NewFlowerAndStemSwirl(),
+		patterns.NewFleur(),
 	}
 
 	for i, pattern := range allPatterns {
