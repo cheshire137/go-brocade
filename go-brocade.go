@@ -4,12 +4,51 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/cheshire137/go-brocade/pkg/patterns"
 	"github.com/lucasb-eyer/go-colorful"
 )
+
+func parseColors(colorsStr string, totalColors int) ([]string, error) {
+	var colors []string
+	if len(colorsStr) > 0 {
+		colors = strings.Split(colorsStr, ",")
+	} else {
+		colors = []string{}
+	}
+	if len(colors) < totalColors {
+		palette, err := colorful.HappyPalette(totalColors - len(colors))
+		if err != nil {
+			return nil, err
+		}
+		for _, color := range palette {
+			colors = append(colors, color.Hex())
+		}
+	}
+	return colors, nil
+}
+
+func parseOffsets(offsetsStr string, totalOffsets int) ([]int, error) {
+	var offsets []int
+	if len(offsetsStr) > 0 {
+		offsetStrs := strings.Split(offsetsStr, ",")
+		for _, offsetStr := range offsetStrs {
+			offset, err := strconv.Atoi(offsetStr)
+			if err == nil {
+				offsets = append(offsets, offset)
+			} else {
+				offsets = append(offsets, 0)
+			}
+		}
+	}
+	for i := 0; i < totalOffsets-len(offsets); i++ {
+		offsets = append(offsets, 0)
+	}
+	return offsets, nil
+}
 
 func main() {
 	var width int
@@ -30,6 +69,16 @@ func main() {
 			"Defaults to randomly chosen colors. The first color will be used for the\n"+
 			"background color.")
 
+	var xOffsetsStr string
+	flag.StringVar(&xOffsetsStr, "xoffsets", "",
+		"Comma-separated string of X-axis offset values, in pixels, for each pattern.\n"+
+			"If omitted, will default to 0px.")
+
+	var yOffsetsStr string
+	flag.StringVar(&yOffsetsStr, "yoffsets", "",
+		"Comma-separated string of Y-axis offset values, in pixels, for each pattern.\n"+
+			"If omitted, will default to 0px.")
+
 	flag.Parse()
 	if len(outPath) < 1 {
 		fmt.Printf("Usage: %s [options]\n\n", os.Args[0])
@@ -47,24 +96,26 @@ func main() {
 
 	canvas := svg.New(outFile)
 	canvas.Start(width, height)
+	totalPatterns := 5
 
-	var colors []string
-	if len(colorsStr) > 0 {
-		colors = strings.Split(colorsStr, ",")
-	} else {
-		colors = []string{}
+	colors, err := parseColors(colorsStr, totalPatterns)
+	if err != nil {
+		fmt.Println("Could not generate colors: " + err.Error())
+		os.Exit(1)
 	}
-	totalColors := 5
-	if len(colors) < totalColors {
-		palette, err := colorful.HappyPalette(totalColors - len(colors))
-		if err != nil {
-			fmt.Println("Could not generate colors: " + err.Error())
-			os.Exit(1)
-			return
-		}
-		for _, color := range palette {
-			colors = append(colors, color.Hex())
-		}
+	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
+
+	xOffsets, err := parseOffsets(xOffsetsStr, totalPatterns)
+	if err != nil {
+		fmt.Println("Could not parse X-offsets: " + err.Error())
+		os.Exit(1)
+	}
+	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
+
+	yOffsets, err := parseOffsets(yOffsetsStr, totalPatterns)
+	if err != nil {
+		fmt.Println("Could not parse Y-offsets: " + err.Error())
+		os.Exit(1)
 	}
 	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
 
@@ -77,9 +128,9 @@ func main() {
 	}
 
 	for i, pattern := range allPatterns {
-		color := colors[(i+1)%totalColors]
+		color := colors[(i+1)%len(colors)]
 		pattern.DefinePattern(width, height, canvas)
-		canvas.Rect(0, 0, width, height, pattern.Style(color))
+		canvas.Rect(0, 0, width, height, pattern.Style(color, xOffsets[i], yOffsets[i]))
 	}
 
 	canvas.End()
