@@ -4,16 +4,26 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/cheshire137/go-brocade/pkg/models"
+	"github.com/cheshire137/go-brocade/pkg/patterns"
 )
 
 func main() {
-	options, err := models.ParseOptions(5)
+	options, err := models.ParseOptions()
 	if err != nil {
 		fmt.Println("Could not parse options: " + err.Error())
 		os.Exit(1)
+		return
+	}
+
+	if options.ListPatterns {
+		fmt.Print("Patterns: ")
+		patternNames := patterns.PatternNames()
+		fmt.Printf("%s\n", strings.Join(patternNames, ", "))
+		os.Exit(0)
 		return
 	}
 

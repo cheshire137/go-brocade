@@ -19,24 +19,36 @@ go build -o bin/go-brocade go-brocade.go
 Usage: bin/go-brocade [options]
 
   -colors string
-    	Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999.
+    	Comma-separated list of colors to apply to the pattern, e.g., #ff00ff,#999999.
     	Defaults to randomly chosen colors. The first color will be used for the
     	background color.
   -h int
     	Height of SVG image to produce; defaults to 11" at 125px per inch (default 1375)
+  -list
+    	Pass this to list available patterns.
   -out string
     	Name of SVG file to create, e.g., my-image.svg
+  -patterns string
+    	Comma-separated list of pattern names to include in the generated image. (default "flowerAndStem,swirlyStem,fleur")
   -w int
     	Width of SVG image to produce; defaults to 8.5" at 125px per inch (default 1063)
   -xoffsets string
-    	Comma-separated string of X-axis offset values, in pixels, for each pattern.
+    	Comma-separated list of X-axis offset values, in pixels, for each pattern.
     	If omitted, will default to 0px.
   -yoffsets string
-    	Comma-separated string of Y-axis offset values, in pixels, for each pattern.
+    	Comma-separated list of Y-axis offset values, in pixels, for each pattern.
     	If omitted, will default to 0px.
 ```
 
-For example:
+### Listing available patterns example
+
+```sh
+% make && bin/go-brocade -list
+go build -o bin/go-brocade go-brocade.go
+Patterns: fleur, flowerAndStem, jigsaw, jupiter, overcast, swirlyStem
+```
+
+### SVG generation example
 
 ```sh
 % make && bin/go-brocade -out test.svg -colors "#efefef" -xoffsets "0,-5,-3" -yoffsets "0,30,-65" && open test.svg

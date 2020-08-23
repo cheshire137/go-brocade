@@ -13,3 +13,14 @@ var _ Pattern = (*Jigsaw)(nil)
 var _ Pattern = (*Jupiter)(nil)
 var _ Pattern = (*Overcast)(nil)
 var _ Pattern = (*SwirlyStem)(nil)
+
+func PatternNames() []string {
+	return []string{
+		"fleur",
+		"flowerAndStem",
+		"jigsaw",
+		"jupiter",
+		"overcast",
+		"swirlyStem",
+	}
+}

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"strconv"
@@ -15,6 +16,7 @@ type Options struct {
 	OutPath        string
 	Background     string
 	PatternConfigs []*PatternConfiguration
+	ListPatterns   bool
 }
 
 func (o *Options) String() string {
@@ -27,7 +29,7 @@ func (o *Options) String() string {
 	return sb.String()
 }
 
-func ParseOptions(totalPatterns int) (*Options, error) {
+func ParseOptions() (*Options, error) {
 	var width int
 	flag.IntVar(&width, "w", 1063,
 		"Width of SVG image to produce; defaults to 8.5\" at 125px per inch")
@@ -42,21 +44,35 @@ func ParseOptions(totalPatterns int) (*Options, error) {
 
 	var colorsStr string
 	flag.StringVar(&colorsStr, "colors", "",
-		"Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999.\n"+
+		"Comma-separated list of colors to apply to the pattern, e.g., #ff00ff,#999999.\n"+
 			"Defaults to randomly chosen colors. The first color will be used for the\n"+
 			"background color.")
 
 	var xOffsetsStr string
 	flag.StringVar(&xOffsetsStr, "xoffsets", "",
-		"Comma-separated string of X-axis offset values, in pixels, for each pattern.\n"+
+		"Comma-separated list of X-axis offset values, in pixels, for each pattern.\n"+
 			"If omitted, will default to 0px.")
 
 	var yOffsetsStr string
 	flag.StringVar(&yOffsetsStr, "yoffsets", "",
-		"Comma-separated string of Y-axis offset values, in pixels, for each pattern.\n"+
+		"Comma-separated list of Y-axis offset values, in pixels, for each pattern.\n"+
 			"If omitted, will default to 0px.")
 
+	var listPatterns bool
+	flag.BoolVar(&listPatterns, "list", false,
+		"Pass this to list available patterns.")
+
+	var patternsStr string
+	flag.StringVar(&patternsStr, "patterns", "flowerAndStem,swirlyStem,fleur",
+		"Comma-separated list of pattern names to include in the generated image.")
+
 	flag.Parse()
+
+	patternNames := parsePatternNames(patternsStr)
+	totalPatterns := len(patternNames)
+	if totalPatterns < 1 {
+		return nil, errors.New("At least one pattern must be specified")
+	}
 
 	colors, err := parseColors(colorsStr, totalPatterns)
 	if err != nil {
@@ -87,6 +103,7 @@ func ParseOptions(totalPatterns int) (*Options, error) {
 		OutPath:        outPath,
 		PatternConfigs: patternConfigs,
 		Background:     bgColor,
+		ListPatterns:   listPatterns,
 	}, nil
 }
 
@@ -126,4 +143,8 @@ func parseOffsets(offsetsStr string, totalOffsets int) ([]int, error) {
 		offsets = append(offsets, 0)
 	}
 	return offsets, nil
+}
+
+func parsePatternNames(patternsStr string) []string {
+	return strings.Split(patternsStr, ",")
 }
