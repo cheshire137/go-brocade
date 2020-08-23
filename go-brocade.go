@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	width := 1000
-	height := 1000
+	width := 1063  // 8.5", 125px per in
+	height := 1375 // 11", 125px per in
 	canvas := svg.New(os.Stdout)
 	canvas.Start(width, height)
 
