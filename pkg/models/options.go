@@ -74,7 +74,7 @@ func ParseOptions() (*Options, error) {
 		return nil, errors.New("At least one pattern must be specified")
 	}
 
-	colors, err := parseColors(colorsStr, totalPatterns)
+	colors, err := parseColors(colorsStr, totalPatterns+1)
 	if err != nil {
 		return nil, err
 	}
