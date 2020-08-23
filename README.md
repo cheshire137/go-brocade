@@ -15,14 +15,11 @@ Example:
 
 ```sh
 % make && bin/go-brocade
-```
-
-This will display usage instructions:
-
-```
 go build -o bin/go-brocade go-brocade.go
 Usage: bin/go-brocade [options]
 
+  -color string
+    	Color to apply to the pattern, e.g., #ff00ff; defaults to a randomly chosen color
   -h int
     	Height of SVG image to produce; defaults to 11" at 125px per inch (default 1375)
   -out string

@@ -7,6 +7,7 @@ import (
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/cheshire137/go-brocade/pkg/patterns"
+	"github.com/lucasb-eyer/go-colorful"
 )
 
 func main() {
@@ -21,6 +22,10 @@ func main() {
 	var outPath string
 	flag.StringVar(&outPath, "out", "",
 		"Name of SVG file to create, e.g., my-image.svg")
+
+	var color string
+	flag.StringVar(&color, "color", "",
+		"Color to apply to the pattern, e.g., #ff00ff; defaults to a randomly chosen color")
 
 	flag.Parse()
 	if len(outPath) < 1 {
@@ -43,7 +48,11 @@ func main() {
 	pattern := patterns.NewFlowerAndStemSwirl()
 	pattern.DefinePattern(width, height, canvas)
 
-	canvas.Rect(0, 0, width, height, pattern.Style("#ff00ff"))
+	if len(color) < 1 {
+		color = colorful.FastHappyColor().Hex()
+	}
+	fmt.Printf("Using color %s\n", color)
+	canvas.Rect(0, 0, width, height, pattern.Style(color))
 
 	canvas.End()
 
