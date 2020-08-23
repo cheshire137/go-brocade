@@ -6,7 +6,6 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
-// Overcast is the "Overcast" pattern from Hero Patterns <https://www.heropatterns.com>
 type Overcast struct {
 	ID            string
 	maskID        string

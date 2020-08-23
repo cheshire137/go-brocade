@@ -6,7 +6,6 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
-// Jigsaw is the "Jigsaw" pattern from Hero Patterns <https://www.heropatterns.com>
 type Jigsaw struct {
 	ID            string
 	maskID        string

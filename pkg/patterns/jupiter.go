@@ -6,7 +6,6 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
-// Jupiter is the "Jupiter" pattern from Hero Patterns <https://www.heropatterns.com>
 type Jupiter struct {
 	ID            string
 	maskID        string
