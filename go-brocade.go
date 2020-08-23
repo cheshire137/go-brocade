@@ -46,16 +46,13 @@ func main() {
 	canvas := svg.New(outFile)
 	canvas.Start(width, height)
 
-	pattern := patterns.NewFlowerAndStemSwirl()
-	pattern.DefinePattern(width, height, canvas)
-
 	var colors []string
 	if len(colorsStr) > 0 {
 		colors = strings.Split(colorsStr, ",")
 	} else {
 		colors = []string{}
 	}
-	totalColors := 1
+	totalColors := 5
 	if len(colors) < totalColors {
 		palette, err := colorful.HappyPalette(totalColors - len(colors))
 		if err != nil {
@@ -68,7 +65,17 @@ func main() {
 		}
 	}
 	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
-	canvas.Rect(0, 0, width, height, pattern.Style(colors[0]))
+
+	allPatterns := []patterns.Pattern{
+		patterns.NewSwirlyStem(),
+		patterns.NewFlowerAndStemSwirl(),
+	}
+
+	for i, pattern := range allPatterns {
+		color := colors[i%totalColors]
+		pattern.DefinePattern(width, height, canvas)
+		canvas.Rect(0, 0, width, height, pattern.Style(color))
+	}
 
 	canvas.End()
 
