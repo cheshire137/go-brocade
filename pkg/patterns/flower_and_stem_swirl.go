@@ -17,8 +17,8 @@ func NewFlowerAndStemSwirl() *FlowerAndStemSwirl {
 	return &FlowerAndStemSwirl{
 		ID:            "FlowerAndStemSwirl",
 		maskID:        "FlowerAndStemSwirl-mask",
-		patternWidth:  200,
-		patternHeight: 200,
+		patternWidth:  241,
+		patternHeight: 252,
 	}
 }
 
