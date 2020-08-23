@@ -26,7 +26,9 @@ func main() {
 
 	var colorsStr string
 	flag.StringVar(&colorsStr, "colors", "",
-		"Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999; defaults to randomly chosen colors")
+		"Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999.\n"+
+			"Defaults to randomly chosen colors. The first color will be used for the\n"+
+			"background color.")
 
 	flag.Parse()
 	if len(outPath) < 1 {
@@ -66,13 +68,15 @@ func main() {
 	}
 	fmt.Printf("Using colors: %s\n", strings.Join(colors, ", "))
 
+	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:%s", colors[0]))
+
 	allPatterns := []patterns.Pattern{
 		patterns.NewSwirlyStem(),
 		patterns.NewFlowerAndStemSwirl(),
 	}
 
 	for i, pattern := range allPatterns {
-		color := colors[i%totalColors]
+		color := colors[(i+1)%totalColors]
 		pattern.DefinePattern(width, height, canvas)
 		canvas.Rect(0, 0, width, height, pattern.Style(color))
 	}

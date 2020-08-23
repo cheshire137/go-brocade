@@ -18,8 +18,10 @@ Example:
 go build -o bin/go-brocade go-brocade.go
 Usage: bin/go-brocade [options]
 
-  -color string
-    	Color to apply to the pattern, e.g., #ff00ff; defaults to a randomly chosen color
+  -colors string
+    	Comma-separated string of colors to apply to the pattern, e.g., #ff00ff,#999999.
+    	Defaults to randomly chosen colors. The first color will be used for the
+    	background color.
   -h int
     	Height of SVG image to produce; defaults to 11" at 125px per inch (default 1375)
   -out string
@@ -31,8 +33,9 @@ Usage: bin/go-brocade [options]
 For example:
 
 ```sh
-% make && bin/go-brocade -out test.svg
+% make && bin/go-brocade -out test.svg -colors "#efefef"
 go build -o bin/go-brocade go-brocade.go
+Using colors: #efefef, #7da852, #8a86ca, #c051c4, #d26a4f
 Wrote test.svg
 ```
 
