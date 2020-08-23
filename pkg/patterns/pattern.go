@@ -1,6 +1,10 @@
 package patterns
 
-import svg "github.com/ajstarks/svgo"
+import (
+	"errors"
+
+	svg "github.com/ajstarks/svgo"
+)
 
 type Pattern interface {
 	DefinePattern(width int, height int, canvas *svg.SVG)
@@ -23,4 +27,26 @@ func PatternNames() []string {
 		"overcast",
 		"swirlyStem",
 	}
+}
+
+func PatternNameToPattern(name string) (Pattern, error) {
+	if name == "fleur" {
+		return NewFleur(), nil
+	}
+	if name == "flowerAndStem" {
+		return NewFlowerAndStemSwirl(), nil
+	}
+	if name == "jigsaw" {
+		return NewJigsaw(), nil
+	}
+	if name == "jupiter" {
+		return NewJupiter(), nil
+	}
+	if name == "overcast" {
+		return NewOvercast(), nil
+	}
+	if name == "swirlyStem" {
+		return NewSwirlyStem(), nil
+	}
+	return nil, errors.New("Invalid pattern name: " + name)
 }

@@ -13,13 +13,17 @@ type PatternConfiguration struct {
 	Pattern patterns.Pattern
 }
 
-func NewPatternConfiguration(color string, xoffset int, yoffset int) *PatternConfiguration {
+func NewPatternConfiguration(patternName string, color string, xoffset int, yoffset int) (*PatternConfiguration, error) {
+	pattern, err := patterns.PatternNameToPattern(patternName)
+	if err != nil {
+		return nil, err
+	}
 	return &PatternConfiguration{
 		Color:   color,
 		Xoffset: xoffset,
 		Yoffset: yoffset,
-		Pattern: patterns.NewFleur(),
-	}
+		Pattern: pattern,
+	}, nil
 }
 
 func (c *PatternConfiguration) String() string {

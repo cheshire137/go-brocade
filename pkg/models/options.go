@@ -92,8 +92,11 @@ func ParseOptions() (*Options, error) {
 	bgColor, colors := colors[0], colors[1:]
 
 	patternConfigs := []*PatternConfiguration{}
-	for i, color := range colors {
-		patternConfig := NewPatternConfiguration(color, xOffsets[i], yOffsets[i])
+	for i, patternName := range patternNames {
+		patternConfig, err := NewPatternConfiguration(patternName, colors[i], xOffsets[i], yOffsets[i])
+		if err != nil {
+			return nil, err
+		}
 		patternConfigs = append(patternConfigs, patternConfig)
 	}
 
