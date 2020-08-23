@@ -1,17 +1,16 @@
 # go-brocade
 
-*Work in progress*
+This is a command-line tool for use in generating hopefully interesting SVG images based on
+[brocade](https://en.wikipedia.org/wiki/Brocade) patterns. It's a work in progress.
 
 ## How to run
 
-Use to generate an SVG image of [brocade](https://en.wikipedia.org/wiki/Brocade) patterns.
-
 ```sh
 % make
-% bin/go-brocade -w [WIDTH] -h [HEIGHT] -out [FILE.svg]
+% bin/go-brocade
 ```
 
-Example:
+### Example: Listing available options
 
 ```sh
 % make && bin/go-brocade
@@ -40,7 +39,7 @@ Usage: bin/go-brocade [options]
     	If omitted, will default to 0px.
 ```
 
-### Listing available patterns example
+### Example: Listing available patterns
 
 ```sh
 % make && bin/go-brocade -list
@@ -48,7 +47,7 @@ go build -o bin/go-brocade go-brocade.go
 Patterns: fleur, flowerAndStem, jigsaw, jupiter, overcast, swirlyStem
 ```
 
-### SVG generation example
+### Example: SVG generation
 
 ```sh
 % make && bin/go-brocade -out test.svg -colors "#efefef" -xoffsets "0,-5,-3" -yoffsets "0,30,-65" && open test.svg
