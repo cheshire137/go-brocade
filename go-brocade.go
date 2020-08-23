@@ -44,7 +44,7 @@ func parseOffsets(offsetsStr string, totalOffsets int) ([]int, error) {
 			}
 		}
 	}
-	for i := 0; i < totalOffsets-len(offsets); i++ {
+	for i := 0; i <= totalOffsets-len(offsets); i++ {
 		offsets = append(offsets, 0)
 	}
 	return offsets, nil
