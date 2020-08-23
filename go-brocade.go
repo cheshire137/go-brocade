@@ -13,22 +13,10 @@ func main() {
 	canvas := svg.New(os.Stdout)
 	canvas.Start(width, height)
 
-	jigsaw := patterns.NewJigsaw()
-	jigsaw.DefinePattern(canvas)
-
-	flowerStemSwirl := patterns.NewFlowerAndStemSwirl()
-	flowerStemSwirl.DefinePattern(canvas)
-
-	overcast := patterns.NewOvercast()
-	overcast.DefinePattern(canvas)
-
 	jupiter := patterns.NewJupiter()
-	jupiter.DefinePattern(canvas)
+	jupiter.DefinePattern(width, height, canvas)
 
-	canvas.Circle(500, 500, 500, jigsaw.Fill())
-	canvas.Circle(500, 500, 500, flowerStemSwirl.Fill())
-	canvas.Circle(500, 500, 500, overcast.Fill())
-	canvas.Circle(500, 500, 500, jupiter.Fill())
+	canvas.Rect(0, 0, width, height, jupiter.Style("#ff00ff"))
 
 	canvas.End()
 }
