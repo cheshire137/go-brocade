@@ -17,8 +17,8 @@ func NewFleur() *Fleur {
 	return &Fleur{
 		ID:            "Fleur",
 		maskID:        "Fleur-mask",
-		patternWidth:  200,
-		patternHeight: 200,
+		patternWidth:  55,
+		patternHeight: 59,
 	}
 }
 

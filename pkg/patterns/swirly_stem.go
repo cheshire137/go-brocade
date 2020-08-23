@@ -17,8 +17,8 @@ func NewSwirlyStem() *SwirlyStem {
 	return &SwirlyStem{
 		ID:            "SwirlyStem",
 		maskID:        "SwirlyStem-mask",
-		patternWidth:  200,
-		patternHeight: 200,
+		patternWidth:  181,
+		patternHeight: 188,
 	}
 }
 
