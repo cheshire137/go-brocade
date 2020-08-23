@@ -37,6 +37,6 @@ func (p *Jigsaw) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.DefEnd()
 }
 
-func (p *Jigsaw) Style(color string) string {
-	return fmt.Sprintf("mask:url(#%s);fill:%s", p.maskID, color)
+func (p *Jigsaw) Style(color string, offsetX int, offsetY int) string {
+	return fmt.Sprintf("mask:url(#%s);fill:%s;transform:translate(%dpx, %dpx)", p.maskID, color, offsetX, offsetY)
 }

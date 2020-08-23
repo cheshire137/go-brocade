@@ -4,7 +4,7 @@ import svg "github.com/ajstarks/svgo"
 
 type Pattern interface {
 	DefinePattern(width int, height int, canvas *svg.SVG)
-	Style(color string) string
+	Style(color string, offsetX int, offsetY int) string
 }
 
 var _ Pattern = (*Fleur)(nil)

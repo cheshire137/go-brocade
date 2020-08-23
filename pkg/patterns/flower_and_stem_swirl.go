@@ -373,6 +373,6 @@ func (p *FlowerAndStemSwirl) DefinePattern(width int, height int, canvas *svg.SV
 	canvas.DefEnd()
 }
 
-func (p *FlowerAndStemSwirl) Style(color string) string {
-	return fmt.Sprintf("mask:url(#%s);fill:%s", p.maskID, color)
+func (p *FlowerAndStemSwirl) Style(color string, offsetX int, offsetY int) string {
+	return fmt.Sprintf("mask:url(#%s);fill:%s;transform:translate(%dpx, %dpx)", p.maskID, color, offsetX, offsetY)
 }

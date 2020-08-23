@@ -41,6 +41,6 @@ func (p *Overcast) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.DefEnd()
 }
 
-func (p *Overcast) Style(color string) string {
-	return fmt.Sprintf("mask:url(#%s);fill:%s", p.maskID, color)
+func (p *Overcast) Style(color string, offsetX int, offsetY int) string {
+	return fmt.Sprintf("mask:url(#%s);fill:%s;transform:translate(%dpx, %dpx)", p.maskID, color, offsetX, offsetY)
 }
