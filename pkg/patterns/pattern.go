@@ -12,7 +12,7 @@ type Pattern interface {
 }
 
 var _ Pattern = (*Fleur)(nil)
-var _ Pattern = (*FlowerAndStemSwirl)(nil)
+var _ Pattern = (*FlowerAndStem)(nil)
 var _ Pattern = (*Jigsaw)(nil)
 var _ Pattern = (*Jupiter)(nil)
 var _ Pattern = (*Overcast)(nil)
@@ -34,7 +34,7 @@ func PatternNameToPattern(name string) (Pattern, error) {
 		return NewFleur(), nil
 	}
 	if name == "flowerAndStem" {
-		return NewFlowerAndStemSwirl(), nil
+		return NewFlowerAndStem(), nil
 	}
 	if name == "jigsaw" {
 		return NewJigsaw(), nil

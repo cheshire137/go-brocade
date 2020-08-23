@@ -6,23 +6,23 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
-type FlowerAndStemSwirl struct {
+type FlowerAndStem struct {
 	ID            string
 	maskID        string
 	patternWidth  int
 	patternHeight int
 }
 
-func NewFlowerAndStemSwirl() *FlowerAndStemSwirl {
-	return &FlowerAndStemSwirl{
-		ID:            "FlowerAndStemSwirl",
-		maskID:        "FlowerAndStemSwirl-mask",
+func NewFlowerAndStem() *FlowerAndStem {
+	return &FlowerAndStem{
+		ID:            "FlowerAndStem",
+		maskID:        "FlowerAndStem-mask",
 		patternWidth:  241,
 		patternHeight: 252,
 	}
 }
 
-func (p *FlowerAndStemSwirl) DefinePattern(width int, height int, canvas *svg.SVG) {
+func (p *FlowerAndStem) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.Def()
 	canvas.Pattern(p.ID, 0, 0, p.patternWidth, p.patternHeight, "user", "stroke:white;stroke-linecap:square;stroke-width:1")
 
@@ -373,6 +373,6 @@ func (p *FlowerAndStemSwirl) DefinePattern(width int, height int, canvas *svg.SV
 	canvas.DefEnd()
 }
 
-func (p *FlowerAndStemSwirl) Style(color string, offsetX int, offsetY int) string {
+func (p *FlowerAndStem) Style(color string, offsetX int, offsetY int) string {
 	return fmt.Sprintf("mask:url(#%s);fill:%s;transform:translate(%dpx, %dpx)", p.maskID, color, offsetX, offsetY)
 }
