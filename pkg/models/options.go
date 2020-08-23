@@ -130,20 +130,24 @@ func parseColors(colorsStr string, totalColors int) ([]string, error) {
 }
 
 func parseOffsets(offsetsStr string, totalOffsets int) ([]int, error) {
-	var offsets []int
+	offsets := make([]int, totalOffsets)
+	resumeIndex := 0
 	if len(offsetsStr) > 0 {
 		offsetStrs := strings.Split(offsetsStr, ",")
-		for _, offsetStr := range offsetStrs {
+		for i, offsetStr := range offsetStrs {
 			offset, err := strconv.Atoi(offsetStr)
-			if err == nil {
-				offsets = append(offsets, offset)
-			} else {
-				offsets = append(offsets, 0)
+			if i < totalOffsets {
+				if err == nil {
+					offsets[i] = offset
+				} else {
+					offsets[i] = 0
+				}
+				resumeIndex = i
 			}
 		}
 	}
-	for i := 0; i <= totalOffsets-len(offsets); i++ {
-		offsets = append(offsets, 0)
+	for i := resumeIndex; i < totalOffsets; i++ {
+		offsets[i] = 0
 	}
 	return offsets, nil
 }
