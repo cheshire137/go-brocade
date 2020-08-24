@@ -4,9 +4,11 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
 
+	"github.com/cheshire137/go-brocade/pkg/patterns"
 	"github.com/lucasb-eyer/go-colorful"
 )
 
@@ -17,6 +19,7 @@ type Options struct {
 	Background     string
 	PatternConfigs []*PatternConfiguration
 	ListPatterns   bool
+	RandomCount    int
 }
 
 func (o *Options) String() string {
@@ -73,13 +76,19 @@ func ParseOptions() (*Options, error) {
 	flag.BoolVar(&listPatterns, "list", false,
 		"Pass this to list available patterns.")
 
+	var randomCount int
+	flag.IntVar(&randomCount, "random", 0,
+		"Number of patterns to randomly include. Set to >0 to use, 0 to specify patterns\n"+
+			"yourself.")
+
 	var patternsStr string
 	flag.StringVar(&patternsStr, "patterns", "flowerAndStem,swirlyStem,fleur",
-		"Comma-separated list of pattern names to include in the generated image.")
+		"Comma-separated list of pattern names to include in the generated image.\n"+
+			"Ignored when -random is >0.")
 
 	flag.Parse()
 
-	patternNames := parsePatternNames(patternsStr)
+	patternNames := parsePatternNames(randomCount, patternsStr)
 	totalPatterns := len(patternNames)
 	if totalPatterns < 1 {
 		return nil, errors.New("At least one pattern must be specified")
@@ -163,6 +172,18 @@ func parseOffsets(offsetsStr string, totalOffsets int) ([]int, error) {
 	return offsets, nil
 }
 
-func parsePatternNames(patternsStr string) []string {
-	return strings.Split(patternsStr, ",")
+func parsePatternNames(randomCount int, patternsStr string) []string {
+	if randomCount < 1 {
+		return strings.Split(patternsStr, ",")
+	}
+
+	allNames := patterns.PatternNames()
+	patternNames := make([]string, randomCount)
+
+	for i := 0; i < randomCount; i++ {
+		nameIndex := rand.Intn(len(allNames))
+		patternNames[i] = allNames[nameIndex]
+	}
+
+	return patternNames
 }

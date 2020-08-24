@@ -5,6 +5,8 @@ This is a command-line tool for use in generating hopefully interesting SVG imag
 
 ## How to run
 
+This was built on macOS using Go 1.13.4.
+
 ```sh
 % make
 % bin/go-brocade
@@ -28,7 +30,11 @@ Usage: bin/go-brocade [options]
   -out string
     	Name of SVG file to create, e.g., my-image.svg
   -patterns string
-    	Comma-separated list of pattern names to include in the generated image. (default "flowerAndStem,swirlyStem,fleur")
+    	Comma-separated list of pattern names to include in the generated image.
+    	Ignored when -random is >0. (default "flowerAndStem,swirlyStem,fleur")
+  -random int
+    	Number of patterns to randomly include. Set to >0 to use, 0 to specify patterns
+    	yourself.
   -w int
     	Width of SVG image to produce; defaults to 8.5" at 125px per inch (default 1063)
   -xoffsets string
@@ -44,16 +50,40 @@ Usage: bin/go-brocade [options]
 ```sh
 % make && bin/go-brocade -list
 go build -o bin/go-brocade go-brocade.go
-Patterns: fleur, flowerAndStem, jigsaw, jupiter, overcast, swirlyStem
+Patterns: fleur, flowerAndStem, jigsaw, jupiter, overcast, sCurve, swirlyStem, yyy
 ```
 
-### Example: SVG generation
+### Example: SVG generation with default patterns
 
 ```sh
-% make && bin/go-brocade -out test.svg -colors "#efefef" -xoffsets "0,-5,-3" -yoffsets "0,30,-65" && open test.svg
+% make && bin/go-brocade -out test.svg -colors "#efefef" -xoffsets "0,-5,-3" -yoffsets "0,30,-65"
 go build -o bin/go-brocade go-brocade.go
-Using colors: #efefef, #7da852, #8a86ca, #c051c4, #d26a4f
-Using offsets: 0,0  -5,30  -3,-65  0,0  0,0
+Using options:
+Dimensions: 1063x1375
+Output: test.svg
+Background: #efefef
+Patterns:
+- FlowerAndStem #7da955 0,0
+- SwirlyStem #d26950 -5,30
+- Fleur #ab6ac8 0,0
+Wrote test.svg
+```
+
+### Example: SVG generation with random patterns
+
+```sh
+% make && bin/go-brocade -random 5 -out test.svg
+go build -o bin/go-brocade go-brocade.go
+Using options:
+Dimensions: 1063x1375
+Output: test.svg
+Background: #d16098
+Patterns:
+- FlowerAndStem #64ac5a 0,0
+- YYY #7989d1 0,0
+- YYY #b7953f 0,0
+- Jupiter #af51d9 0,0
+- FlowerAndStem #d55d45 0,0
 Wrote test.svg
 ```
 
