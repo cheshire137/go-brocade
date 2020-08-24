@@ -26,6 +26,11 @@ func NewPatternConfiguration(patternName string, color string, xoffset int, yoff
 	}, nil
 }
 
+func (c *PatternConfiguration) Name() string {
+	pattern := c.Pattern
+	return pattern.Name()
+}
+
 func (c *PatternConfiguration) String() string {
-	return fmt.Sprintf("%s %d,%d", c.Color, c.Xoffset, c.Yoffset)
+	return fmt.Sprintf("%s %s %d,%d", c.Name(), c.Color, c.Xoffset, c.Yoffset)
 }

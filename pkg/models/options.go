@@ -22,10 +22,21 @@ type Options struct {
 func (o *Options) String() string {
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("Dimensions: %dx%d\n", o.Width, o.Height))
-	sb.WriteString(fmt.Sprintf("Output: %s\n", o.OutPath))
+
+	sb.WriteString("Output: ")
+	sb.WriteString(o.OutPath)
+	sb.WriteString("\n")
+
+	sb.WriteString("Background: ")
+	sb.WriteString(o.Background)
+	sb.WriteString("\n")
+
+	sb.WriteString("Patterns:")
 	for _, config := range o.PatternConfigs {
+		sb.WriteString("\n- ")
 		sb.WriteString(config.String())
 	}
+
 	return sb.String()
 }
 
@@ -91,13 +102,13 @@ func ParseOptions() (*Options, error) {
 
 	bgColor, colors := colors[0], colors[1:]
 
-	patternConfigs := []*PatternConfiguration{}
+	patternConfigs := make([]*PatternConfiguration, totalPatterns)
 	for i, patternName := range patternNames {
 		patternConfig, err := NewPatternConfiguration(patternName, colors[i], xOffsets[i], yOffsets[i])
 		if err != nil {
 			return nil, err
 		}
-		patternConfigs = append(patternConfigs, patternConfig)
+		patternConfigs[i] = patternConfig
 	}
 
 	return &Options{
