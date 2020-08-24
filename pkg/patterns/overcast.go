@@ -7,7 +7,7 @@ import (
 )
 
 type Overcast struct {
-	ID            string
+	name          string
 	maskID        string
 	patternWidth  int
 	patternHeight int
@@ -15,16 +15,20 @@ type Overcast struct {
 
 func NewOvercast() *Overcast {
 	return &Overcast{
-		ID:            "Overcast",
+		name:          "Overcast",
 		maskID:        "Overcast-mask",
 		patternWidth:  80,
 		patternHeight: 80,
 	}
 }
 
+func (p *Overcast) Name() string {
+	return p.name
+}
+
 func (p *Overcast) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.Def()
-	canvas.Pattern(p.ID, 0, 0, p.patternWidth, p.patternHeight, "user", "stroke:white;stroke-linecap:square;stroke-width:1")
+	canvas.Pattern(p.name, 0, 0, p.patternWidth, p.patternHeight, "user", "stroke:white;stroke-linecap:square;stroke-width:1")
 
 	canvas.Gstyle("fill:#000")
 	canvas.Path("M0 0h80v80H0V0zm20 20v40h40V20H20zm20 35a15 15 0 1 1 0-30 15 15 0 0 1 0 30z")
@@ -34,7 +38,7 @@ func (p *Overcast) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.PatternEnd()
 
 	canvas.Mask(p.maskID, 0, 0, width, height)
-	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:url(#%s)", p.ID))
+	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:url(#%s)", p.name))
 	canvas.MaskEnd()
 
 	canvas.DefEnd()

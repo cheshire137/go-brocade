@@ -7,7 +7,7 @@ import (
 )
 
 type Fleur struct {
-	ID            string
+	name          string
 	maskID        string
 	patternWidth  int
 	patternHeight int
@@ -15,16 +15,20 @@ type Fleur struct {
 
 func NewFleur() *Fleur {
 	return &Fleur{
-		ID:            "Fleur",
+		name:          "Fleur",
 		maskID:        "Fleur-mask",
 		patternWidth:  55,
 		patternHeight: 59,
 	}
 }
 
+func (p *Fleur) Name() string {
+	return p.name
+}
+
 func (p *Fleur) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.Def()
-	canvas.Pattern(p.ID, 0, 0, p.patternWidth, p.patternHeight, "user", "stroke:white;stroke-linecap:square;stroke-width:1")
+	canvas.Pattern(p.name, 0, 0, p.patternWidth, p.patternHeight, "user", "stroke:white;stroke-linecap:square;stroke-width:1")
 
 	canvas.Gstyle("fill:#290900;stroke:none")
 	canvas.Path("M46.2 56.1 c-1.7 -1.6 -3.2 -3.3 -3.2 -3.9 0 -0.6 -0.5 -1.2 -1.1 -1.4 -1.2 -0.4 -1.8 -12.8 -0.7 -12.8 0.4 0 2.1 2.7 3.8 6.1 2.1 4 4.2 6.7 6.5 8.1 3.8 2.1 4 2.5 2.6 4.7 -1.6 2.5 -4.5 2.1 -7.9 -0.8z")
@@ -84,7 +88,7 @@ func (p *Fleur) DefinePattern(width int, height int, canvas *svg.SVG) {
 	canvas.PatternEnd()
 
 	canvas.Mask(p.maskID, 0, 0, width, height)
-	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:url(#%s)", p.ID))
+	canvas.Rect(0, 0, width, height, fmt.Sprintf("fill:url(#%s)", p.name))
 	canvas.MaskEnd()
 
 	canvas.DefEnd()
