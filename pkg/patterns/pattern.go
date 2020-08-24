@@ -25,6 +25,7 @@ func PatternNames() []string {
 		"jigsaw",
 		"jupiter",
 		"overcast",
+		"sCurve",
 		"swirlyStem",
 	}
 }
@@ -44,6 +45,9 @@ func PatternNameToPattern(name string) (Pattern, error) {
 	}
 	if name == "overcast" {
 		return NewOvercast(), nil
+	}
+	if name == "sCurve" {
+		return NewSCurve(), nil
 	}
 	if name == "swirlyStem" {
 		return NewSwirlyStem(), nil
