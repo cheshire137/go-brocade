@@ -3,8 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/cheshire137/go-brocade/pkg/models"
@@ -12,6 +14,8 @@ import (
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	options, err := models.ParseOptions()
 	if err != nil {
 		fmt.Println("Could not parse options: " + err.Error())
