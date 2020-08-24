@@ -13,13 +13,14 @@ import (
 )
 
 type Options struct {
-	Width          int
-	Height         int
-	OutPath        string
-	Background     string
-	PatternConfigs []*PatternConfiguration
-	ListPatterns   bool
-	RandomCount    int
+	Width           int
+	Height          int
+	OutPath         string
+	Background      string
+	PatternConfigs  []*PatternConfiguration
+	ListPatterns    bool
+	RandomCount     int
+	InteractiveMode bool
 }
 
 func (o *Options) String() string {
@@ -76,6 +77,10 @@ func ParseOptions() (*Options, error) {
 	flag.BoolVar(&listPatterns, "list", false,
 		"Pass this to list available patterns.")
 
+	var interactiveMode bool
+	flag.BoolVar(&interactiveMode, "i", false,
+		"Set to true to be prompted for each option. Ignores other options that were passed.")
+
 	var randomCount int
 	flag.IntVar(&randomCount, "random", 0,
 		"Number of patterns to randomly include. Set to >0 to use, 0 to specify patterns\n"+
@@ -121,12 +126,13 @@ func ParseOptions() (*Options, error) {
 	}
 
 	return &Options{
-		Width:          width,
-		Height:         height,
-		OutPath:        outPath,
-		PatternConfigs: patternConfigs,
-		Background:     bgColor,
-		ListPatterns:   listPatterns,
+		Width:           width,
+		Height:          height,
+		OutPath:         outPath,
+		PatternConfigs:  patternConfigs,
+		Background:      bgColor,
+		ListPatterns:    listPatterns,
+		InteractiveMode: interactiveMode,
 	}, nil
 }
 

@@ -31,6 +31,11 @@ func main() {
 		return
 	}
 
+	if options.InteractiveMode {
+		fmt.Print("Output path: ")
+		fmt.Scanln(&options.OutPath)
+	}
+
 	if len(options.OutPath) < 1 {
 		fmt.Printf("Usage: %s [options]\n\n", os.Args[0])
 		flag.PrintDefaults()
@@ -50,7 +55,6 @@ func main() {
 
 	canvas := svg.New(outFile)
 	canvas.Start(options.Width, options.Height)
-
 	canvas.Rect(0, 0, options.Width, options.Height, fmt.Sprintf("fill:%s", options.Background))
 
 	for _, config := range options.PatternConfigs {
