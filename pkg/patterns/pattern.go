@@ -18,6 +18,7 @@ var _ Pattern = (*Jigsaw)(nil)
 var _ Pattern = (*Jupiter)(nil)
 var _ Pattern = (*Overcast)(nil)
 var _ Pattern = (*SwirlyStem)(nil)
+var _ Pattern = (*YYY)(nil)
 
 func PatternNames() []string {
 	return []string{
@@ -28,6 +29,7 @@ func PatternNames() []string {
 		"overcast",
 		"sCurve",
 		"swirlyStem",
+		"yyy",
 	}
 }
 
@@ -52,6 +54,9 @@ func PatternNameToPattern(name string) (Pattern, error) {
 	}
 	if name == "swirlyStem" {
 		return NewSwirlyStem(), nil
+	}
+	if name == "yyy" {
+		return NewYYY(), nil
 	}
 	return nil, errors.New("Invalid pattern name: " + name)
 }
